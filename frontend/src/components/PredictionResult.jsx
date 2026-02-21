@@ -1,5 +1,7 @@
 const PredictionResult = ({ prediction, onReset }) => {
-    const isApproved = prediction.loan_status === 1
+    const isApproved = prediction.prediction === 1
+    const confidenceValue = parseFloat(prediction.confidence) || 0
+    const probabilityValue = prediction.probability || 0
 
     return (
         <div className="result">
@@ -7,7 +9,7 @@ const PredictionResult = ({ prediction, onReset }) => {
                 {isApproved ? '✅' : '❌'}
             </div>
 
-            <h2>{prediction.prediction}</h2>
+            <h2>{prediction.status}</h2>
             <p style={{ fontSize: '1.125rem', marginBottom: '1.5rem' }}>
                 {isApproved
                     ? 'Congratulations! Your loan application is likely to be approved.'
@@ -18,20 +20,22 @@ const PredictionResult = ({ prediction, onReset }) => {
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                     <span style={{ color: 'var(--text-secondary)' }}>Confidence Score</span>
                     <span style={{ fontWeight: '600', fontSize: '1.125rem' }}>
-                        {prediction.confidence.toFixed(1)}%
+                        {confidenceValue.toFixed(1)}%
                     </span>
                 </div>
                 <div className="confidence-bar">
                     <div
                         className="confidence-fill"
-                        style={{ width: `${prediction.confidence}%` }}
+                        style={{ width: `${confidenceValue}%` }}
                     ></div>
                 </div>
             </div>
 
             <div className="advice-box">
                 <p style={{ margin: 0, fontSize: '0.95rem' }}>
-                    <strong>💡 Advice:</strong> {prediction.advice}
+                    <strong>💡 Advice:</strong> {isApproved 
+                        ? 'Maintain your good credit score and stable income to ensure approval.'
+                        : 'Consider improving your credit score and reducing debt-to-income ratio before reapplying.'}
                 </p>
             </div>
 
@@ -47,13 +51,13 @@ const PredictionResult = ({ prediction, onReset }) => {
                 <div style={{ textAlign: 'center' }}>
                     <div style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>Approval</div>
                     <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--success)' }}>
-                        {prediction.probability_approved.toFixed(1)}%
+                        {isApproved ? confidenceValue.toFixed(1) : (100 - confidenceValue).toFixed(1)}%
                     </div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
                     <div style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>Rejection</div>
                     <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--error)' }}>
-                        {prediction.probability_rejected.toFixed(1)}%
+                        {isApproved ? (100 - confidenceValue).toFixed(1) : confidenceValue.toFixed(1)}%
                     </div>
                 </div>
             </div>
@@ -68,7 +72,7 @@ const PredictionResult = ({ prediction, onReset }) => {
                 color: 'var(--text-muted)',
                 textAlign: 'center'
             }}>
-                Prediction made at {new Date(prediction.timestamp).toLocaleTimeString()}
+                Prediction made at {new Date().toLocaleTimeString()}
             </p>
         </div>
     )

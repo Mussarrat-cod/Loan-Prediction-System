@@ -1,0 +1,50 @@
+{
+  "accuracy": 0.9,
+  "n_samples_train": 78,
+  "n_samples_test": 20,
+  "n_features": 15,
+  "feature_importance": [
+    {
+      "feature": "Credit_History",
+      "importance": 0.17598793059088016
+    },
+    {
+      "feature": "Income_Loan_Ratio",
+      "importance": 0.14484313052768352
+    },
+    {
+      "feature": "Total_Income",
+      "importance": 0.12192208871513177
+    },
+    {
+      "feature": "LoanAmount_log",
+      "importance": 0.10076343800340865
+    },
+    {
+      "feature": "Total_Income_log",
+      "importance": 0.09226670597135221
+    },
+    {
+      "feature": "ApplicantIncome",
+      "importance": 0.08297721112311915
+    },
+    {
+      "feature": "LoanAmount",
+      "importance": 0.07419798476786701
+    },
+    {
+      "feature": "CoapplicantIncome",
+      "importance": 0.05881052596830824
+    },
+    {
+      "feature": "Dependents",
+      "importance": 0.03924976774895717
+    },
+    {
+      "feature": "Education",
+      "importance": 0.03885243709630471
+    }
+  ],
+  "model_type": "RandomForestClassifier",
+  "n_estimators": 100
+}

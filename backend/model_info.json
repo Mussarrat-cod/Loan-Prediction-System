@@ -1,50 +1,428 @@
 {
-  "accuracy": 0.9,
-  "n_samples_train": 78,
-  "n_samples_test": 20,
-  "n_features": 15,
-  "feature_importance": [
+  "best_model": "Random Forest",
+  "cv_accuracy": 0.8159968270756213,
+  "test_accuracy": 0.967479674796748,
+  "validation_range": {
+    "min": 0.8702702702702703,
+    "max": 0.8961038961038961
+  },
+  "n_samples": 614,
+  "n_features": 25,
+  "feature_scores": [
+    {
+      "feature": "Credit_x_Loan",
+      "f_score": 215.94029739685584,
+      "importance": 0.07830077607206669,
+      "rfe_ranking": 1,
+      "combined_score": 16.908292871406694
+    },
+    {
+      "feature": "Credit_x_Income",
+      "f_score": 239.05185209848074,
+      "importance": 0.06737425988978425,
+      "rfe_ranking": 1,
+      "combined_score": 16.105941610417307
+    },
     {
       "feature": "Credit_History",
-      "importance": 0.17598793059088016
+      "f_score": 252.6520903644952,
+      "importance": 0.05123703428722887,
+      "rfe_ranking": 1,
+      "combined_score": 12.945143816745688
     },
     {
-      "feature": "Income_Loan_Ratio",
-      "importance": 0.14484313052768352
+      "feature": "Risk_Score_1",
+      "f_score": 138.66176574256355,
+      "importance": 0.03231955611351265,
+      "rfe_ranking": 1,
+      "combined_score": 4.481486718715528
     },
     {
-      "feature": "Total_Income",
-      "importance": 0.12192208871513177
+      "feature": "Credit_History_Score",
+      "f_score": 252.65209036449502,
+      "importance": 0.0521016326387034,
+      "rfe_ranking": 3,
+      "combined_score": 4.3878621325238045
     },
     {
-      "feature": "LoanAmount_log",
-      "importance": 0.10076343800340865
+      "feature": "Risk_Score_2",
+      "f_score": 136.62477411181158,
+      "importance": 0.025475708731958802,
+      "rfe_ranking": 1,
+      "combined_score": 3.4806129508421773
     },
     {
-      "feature": "Total_Income_log",
-      "importance": 0.09226670597135221
+      "feature": "Credit_x_EMI",
+      "f_score": 9.260437636810355,
+      "importance": 0.07872984896769103,
+      "rfe_ranking": 1,
+      "combined_score": 0.7290728565208009
     },
     {
-      "feature": "ApplicantIncome",
-      "importance": 0.08297721112311915
+      "feature": "Loan_to_Income",
+      "f_score": 4.137708592063187,
+      "importance": 0.042574285720524845,
+      "rfe_ranking": 1,
+      "combined_score": 0.1761599878267687
     },
     {
-      "feature": "LoanAmount",
-      "importance": 0.07419798476786701
+      "feature": "Rural_x_Loan",
+      "f_score": 6.378446040091473,
+      "importance": 0.01586354833844887,
+      "rfe_ranking": 1,
+      "combined_score": 0.10118478708117887
+    },
+    {
+      "feature": "Income_x_Education",
+      "f_score": 4.1630533941794,
+      "importance": 0.019309061042576323,
+      "rfe_ranking": 1,
+      "combined_score": 0.08038465211171458
+    },
+    {
+      "feature": "Debt_to_Income",
+      "f_score": 1.4976417409048364,
+      "importance": 0.02679584190750683,
+      "rfe_ranking": 1,
+      "combined_score": 0.0401305713233693
+    },
+    {
+      "feature": "EMI_to_Income",
+      "f_score": 1.4976417409051193,
+      "importance": 0.02617206429636465,
+      "rfe_ranking": 1,
+      "combined_score": 0.03919637593588827
+    },
+    {
+      "feature": "Income_x_Property",
+      "f_score": 0.724950455599067,
+      "importance": 0.03479184039201748,
+      "rfe_ranking": 1,
+      "combined_score": 0.025222360543323094
+    },
+    {
+      "feature": "Loan_per_Dependent",
+      "f_score": 0.9097358100959535,
+      "importance": 0.02757556614884918,
+      "rfe_ranking": 1,
+      "combined_score": 0.02508648000927786
+    },
+    {
+      "feature": "Applicant_Income_Ratio",
+      "f_score": 0.8616370989075272,
+      "importance": 0.027278617302232484,
+      "rfe_ranking": 1,
+      "combined_score": 0.023504268674504274
     },
     {
       "feature": "CoapplicantIncome",
-      "importance": 0.05881052596830824
+      "f_score": 2.151457355866663,
+      "importance": 0.016456500647934264,
+      "rfe_ranking": 2,
+      "combined_score": 0.01770272968541134
     },
     {
-      "feature": "Dependents",
-      "importance": 0.03924976774895717
+      "feature": "LoanAmount_log",
+      "f_score": 0.810927879264945,
+      "importance": 0.021279661328703656,
+      "rfe_ranking": 1,
+      "combined_score": 0.01725627063276192
+    },
+    {
+      "feature": "Total_Income",
+      "f_score": 0.5990370814837125,
+      "importance": 0.02741331848593444,
+      "rfe_ranking": 1,
+      "combined_score": 0.01642159429959767
+    },
+    {
+      "feature": "Coapplicant_Ratio",
+      "f_score": 0.862511419381478,
+      "importance": 0.01875137529667971,
+      "rfe_ranking": 1,
+      "combined_score": 0.016173275322494
+    },
+    {
+      "feature": "Loan_x_Education",
+      "f_score": 3.3873254142869076,
+      "importance": 0.017715241095358884,
+      "rfe_ranking": 4,
+      "combined_score": 0.015001821595632245
+    },
+    {
+      "feature": "LoanAmount",
+      "f_score": 0.6232659309531541,
+      "importance": 0.020570812484138442,
+      "rfe_ranking": 1,
+      "combined_score": 0.01282108659338931
+    },
+    {
+      "feature": "Income_per_Dependent",
+      "f_score": 0.29254895320085667,
+      "importance": 0.029705879329878306,
+      "rfe_ranking": 1,
+      "combined_score": 0.008690423901866863
+    },
+    {
+      "feature": "CoapplicantIncome_log",
+      "f_score": 2.255241073278033,
+      "importance": 0.013954492926544375,
+      "rfe_ranking": 5,
+      "combined_score": 0.00629414912094213
+    },
+    {
+      "feature": "Loan_ID",
+      "f_score": 0.08484309276276983,
+      "importance": 0.03293451409322695,
+      "rfe_ranking": 1,
+      "combined_score": 0.0027942660343084043
+    },
+    {
+      "feature": "Married",
+      "f_score": 5.164551722656487,
+      "importance": 0.003907432101707385,
+      "rfe_ranking": 9,
+      "combined_score": 0.0022422372435595703
+    },
+    {
+      "feature": "ApplicantIncome_log",
+      "f_score": 0.07350392210333273,
+      "importance": 0.02827449133477603,
+      "rfe_ranking": 1,
+      "combined_score": 0.0020782860085827334
+    },
+    {
+      "feature": "Urban_x_Income",
+      "f_score": 1.071664152330133,
+      "importance": 0.010694978908010964,
+      "rfe_ranking": 6,
+      "combined_score": 0.0019102375842737032
+    },
+    {
+      "feature": "EMI",
+      "f_score": 0.07148006411465145,
+      "importance": 0.024925447655730855,
+      "rfe_ranking": 1,
+      "combined_score": 0.0017816725965180303
     },
     {
       "feature": "Education",
-      "importance": 0.03885243709630471
+      "f_score": 4.547684575841728,
+      "importance": 0.0032755163127314085,
+      "rfe_ranking": 15,
+      "combined_score": 0.0009930676675551065
+    },
+    {
+      "feature": "Income_Stability",
+      "f_score": 0.03817931442847003,
+      "importance": 0.02590416017469369,
+      "rfe_ranking": 1,
+      "combined_score": 0.0009890030763150814
     }
   ],
   "model_type": "RandomForestClassifier",
-  "n_estimators": 100
+  "all_model_results": {
+    "Random Forest": {
+      "cv_mean": 0.8159968270756213,
+      "cv_std": 0.02035425768002715,
+      "cv_min": 0.7868852459016393,
+      "cv_max": 0.8524590163934426,
+      "auc_score": 0.9976796998420221
+    },
+    "Extra Trees": {
+      "cv_mean": 0.7934955050237971,
+      "cv_std": 0.051547138012697315,
+      "cv_min": 0.7096774193548387,
+      "cv_max": 0.8688524590163934,
+      "auc_score": 1.0
+    },
+    "Gradient Boosting": {
+      "cv_mean": 0.7915917503966156,
+      "cv_std": 0.024429228341002193,
+      "cv_min": 0.7580645161290323,
+      "cv_max": 0.8360655737704918,
+      "auc_score": 1.0
+    },
+    "Logistic Regression": {
+      "cv_mean": 0.8062136435748283,
+      "cv_std": 0.02936966023939039,
+      "cv_min": 0.7540983606557377,
+      "cv_max": 0.8524590163934426,
+      "auc_score": 0.8004418443917852
+    },
+    "SVM": {
+      "cv_mean": 0.6856953992596511,
+      "cv_std": 0.005614036682989076,
+      "cv_min": 0.6774193548387096,
+      "cv_max": 0.6935483870967742,
+      "auc_score": 0.7438289889415483
+    },
+    "Neural Network": {
+      "cv_mean": 0.6366208355367531,
+      "cv_std": 0.06920110265040161,
+      "cv_min": 0.5409836065573771,
+      "cv_max": 0.7258064516129032,
+      "auc_score": 0.5842096169036335
+    },
+    "KNN": {
+      "cv_mean": 0.6367265996827075,
+      "cv_std": 0.029168777874827932,
+      "cv_min": 0.5901639344262295,
+      "cv_max": 0.6774193548387096,
+      "auc_score": 1.0
+    },
+    "Naive Bayes": {
+      "cv_mean": 0.8029613960867266,
+      "cv_std": 0.028515355384612473,
+      "cv_min": 0.7377049180327869,
+      "cv_max": 0.8360655737704918,
+      "auc_score": 0.7752888033175355
+    },
+    "Voting Ensemble": {
+      "cv_mean": 0.804574299312533,
+      "cv_std": 0.02720844324037114,
+      "cv_min": 0.7377049180327869,
+      "cv_max": 0.8360655737704918
+    },
+    "Stacking Ensemble": {
+      "cv_mean": 0.806213643574828,
+      "cv_std": 0.02853046648831752,
+      "cv_min": 0.7377049180327869,
+      "cv_max": 0.8360655737704918
+    }
+  },
+  "hyperparameters": {
+    "bootstrap": true,
+    "ccp_alpha": 0.0,
+    "class_weight": null,
+    "criterion": "gini",
+    "max_depth": 25,
+    "max_features": "sqrt",
+    "max_leaf_nodes": null,
+    "max_samples": null,
+    "min_impurity_decrease": 0.0,
+    "min_samples_leaf": 2,
+    "min_samples_split": 4,
+    "min_weight_fraction_leaf": 0.0,
+    "monotonic_cst": null,
+    "n_estimators": 400,
+    "n_jobs": -1,
+    "oob_score": false,
+    "random_state": 42,
+    "verbose": 0,
+    "warm_start": false
+  },
+  "dataset_info": {
+    "train_records": 614,
+    "test_records": 367,
+    "total_records": 981,
+    "approval_rate": 0.6872964169381107
+  },
+  "feature_engineering": {
+    "total_features_created": 29,
+    "categorical_encoded": 7,
+    "numerical_features": 42
+  },
+  "feature_importance": [
+    {
+      "feature": "Credit_x_Income",
+      "importance": 0.11336369429303023
+    },
+    {
+      "feature": "Credit_x_EMI",
+      "importance": 0.09853869480394734
+    },
+    {
+      "feature": "Credit_x_Loan",
+      "importance": 0.09025797085866848
+    },
+    {
+      "feature": "Credit_History_Score",
+      "importance": 0.055860748435384175
+    },
+    {
+      "feature": "Loan_to_Income",
+      "importance": 0.048436664243347485
+    },
+    {
+      "feature": "Loan_ID",
+      "importance": 0.04564290610643566
+    },
+    {
+      "feature": "Income_x_Property",
+      "importance": 0.043376934408149694
+    },
+    {
+      "feature": "Income_per_Dependent",
+      "importance": 0.040900096225476155
+    },
+    {
+      "feature": "Credit_History",
+      "importance": 0.040693648372966344
+    },
+    {
+      "feature": "Applicant_Income_Ratio",
+      "importance": 0.03926655504934905
+    },
+    {
+      "feature": "Debt_to_Income",
+      "importance": 0.037009380825078604
+    },
+    {
+      "feature": "EMI_to_Income",
+      "importance": 0.03506341520285134
+    },
+    {
+      "feature": "Total_Income",
+      "importance": 0.03456530042888662
+    },
+    {
+      "feature": "Risk_Score_1",
+      "importance": 0.03271156338252883
+    },
+    {
+      "feature": "Loan_per_Dependent",
+      "importance": 0.03262022490512434
+    },
+    {
+      "feature": "Income_x_Education",
+      "importance": 0.029141198672009358
+    },
+    {
+      "feature": "LoanAmount_log",
+      "importance": 0.024963095178980734
+    },
+    {
+      "feature": "LoanAmount",
+      "importance": 0.02473235858903793
+    },
+    {
+      "feature": "Risk_Score_2",
+      "importance": 0.024650690012993887
+    },
+    {
+      "feature": "Coapplicant_Ratio",
+      "importance": 0.0239559071636533
+    },
+    {
+      "feature": "Loan_x_Education",
+      "importance": 0.023020517121338353
+    },
+    {
+      "feature": "Rural_x_Loan",
+      "importance": 0.019822237941939727
+    },
+    {
+      "feature": "CoapplicantIncome",
+      "importance": 0.017459952676835592
+    },
+    {
+      "feature": "CoapplicantIncome_log",
+      "importance": 0.017178012401808794
+    },
+    {
+      "feature": "Married",
+      "importance": 0.006768232700178005
+    }
+  ]
 }

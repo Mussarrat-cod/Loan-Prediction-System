@@ -11,16 +11,19 @@ CORS(app)
 
 # Load the trained model and encoders
 try:
+    print("Attempting to load model files...")
     model = joblib.load('model.pkl')
     encoders = joblib.load('encoders.pkl')
     feature_names = joblib.load('feature_names.pkl')
-except:
-    print("Warning: Model files not found. Please run train_and_save_model.py first")
+    print("✓ Model files loaded successfully!")
+except Exception as e:
+    print(f"Warning: Model files not found. Error: {e}")
+    print("Please run train_and_save_model.py first")
     model = None
     encoders = {}
     feature_names = []
 
-@app.route('/predict', methods=['POST'])
+@app.route('/api/predict', methods=['POST'])
 def predict():
     if model is None:
         return jsonify({
@@ -31,28 +34,36 @@ def predict():
     try:
         data = request.json
         
-        # Extract features from request
+        # Extract and engineer features from frontend data
+        applicant_income = int(data.get('ApplicantIncome', 50000))
+        coapplicant_income = int(data.get('CoapplicantIncome', 0))
+        loan_amount = int(data.get('LoanAmount', 10000))
+        loan_term = int(data.get('Loan_Amount_Term', 360))
+        credit_history = int(data.get('Credit_History', 1))
+        married = 1 if data.get('Married', 'No') == 'Yes' else 0
+        education = 0 if data.get('Education', 'Graduate') == 'Graduate' else 1
+        property_area = 2 if data.get('Property_Area', 'Urban') == 'Urban' else (1 if data.get('Property_Area', 'Urban') == 'Semiurban' else 0)
+        
+        total_income = applicant_income + coapplicant_income
+        
         features = {
-            'person_age': int(data.get('age', 30)),
-            'person_income': int(data.get('income', 50000)),
-            'person_home_ownership': data.get('home_ownership', 'RENT'),
-            'person_emp_length': float(data.get('emp_length', 5.0)),
-            'loan_intent': data.get('loan_intent', 'EDUCATION'),
-            'loan_grade': data.get('loan_grade', 'A'),
-            'loan_amnt': int(data.get('loan_amount', 10000)),
-            'loan_int_rate': float(data.get('interest_rate', 10.5)),
-            'loan_percent_income': float(data.get('loan_percent_income', 0.2)),
-            'cb_person_default_on_file': data.get('default_on_file', 'N'),
-            'cb_person_cred_hist_length': int(data.get('credit_history_length', 5))
+            'Credit_History': credit_history,
+            'Good_Credit_Flag': credit_history,
+            'Credit_History_x_Income': credit_history * np.log1p(total_income),
+            'Loan_to_Income_Ratio': loan_amount / (total_income + 1),
+            'Total_Income_log': np.log1p(total_income),
+            'LoanAmount_log': np.log1p(loan_amount),
+            'Married': married,
+            'Education': education,
+            'Property_Area': property_area,
+            'ApplicantIncome': applicant_income,
+            'CoapplicantIncome': coapplicant_income,
+            'LoanAmount': loan_amount,
+            'Loan_Amount_Term': loan_term
         }
         
         # Create DataFrame
         df = pd.DataFrame([features])
-        
-        # Encode categorical variables
-        for column in ['person_home_ownership', 'loan_intent', 'loan_grade', 'cb_person_default_on_file']:
-            if column in encoders:
-                df[column] = encoders[column].transform(df[column])
         
         # Ensure all required columns are present
         for col in feature_names:
@@ -82,7 +93,7 @@ def predict():
             'error': str(e)
         }), 400
 
-@app.route('/chat', methods=['POST'])
+@app.route('/api/chat', methods=['POST'])
 def chat():
     data = request.json
     user_message = data.get('message', '')
@@ -172,7 +183,7 @@ def chat():
         'reply': reply
     })
 
-@app.route('/health', methods=['GET'])
+@app.route('/api/health', methods=['GET'])
 def health():
     return jsonify({
         'status': 'healthy',

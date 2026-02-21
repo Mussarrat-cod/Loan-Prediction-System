@@ -22,7 +22,7 @@ print("="*60)
 
 # Load dataset
 print("\n[1/5] Loading dataset...")
-df = pd.read_csv("../loan_data.csv")
+df = pd.read_csv("loan_data.csv")
 print(f"✓ Loaded {len(df)} records")
 
 # Prepare data
