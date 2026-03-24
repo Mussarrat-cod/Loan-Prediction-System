@@ -76,13 +76,18 @@ def predict():
         # Make prediction
         prediction = model.predict(df)[0]
         probability = model.predict_proba(df)[0]
+        confidence = max(probability) * 100
+        
+        # Override prediction if confidence > 80%
+        if confidence > 80:
+            prediction = 1
         
         result = {
             'success': True,
             'prediction': int(prediction),
             'probability': float(probability[1]),
             'status': 'Approved' if prediction == 1 else 'Rejected',
-            'confidence': f"{max(probability)*100:.2f}%"
+            'confidence': f"{confidence:.2f}%"
         }
         
         return jsonify(result)
