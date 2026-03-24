@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import LoanForm from './components/LoanForm'
 import PredictionResult from './components/PredictionResult'
-import FinanceChatbot from './components/FinanceChatbot'
 
 const API_URL = 'http://localhost:5000/api'
 
@@ -72,9 +71,6 @@ function App() {
                     <PredictionResult prediction={prediction} onReset={handleReset} />
                 )}
             </div>
-
-            {/* Floating Finance Chatbot */}
-            <FinanceChatbot />
         </>
     )
 }

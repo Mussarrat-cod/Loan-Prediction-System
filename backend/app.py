@@ -1,7 +1,5 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import requests
-import json
 import joblib
 import pandas as pd
 import numpy as np
@@ -78,8 +76,11 @@ def predict():
         probability = model.predict_proba(df)[0]
         confidence = max(probability) * 100
         
+        # Reject if confidence is less than 60%
+        if confidence < 60:
+            prediction = 0
         # Override prediction if confidence > 80%
-        if confidence > 80:
+        elif confidence > 80:
             prediction = 1
         
         result = {
@@ -97,96 +98,6 @@ def predict():
             'success': False,
             'error': str(e)
         }), 400
-
-@app.route('/api/chat', methods=['POST'])
-def chat():
-    data = request.json
-    user_message = data.get('message', '')
-    user_message_lower = user_message.lower()
-    
-    if not user_message:
-        return jsonify({
-            'success': False,
-            'error': 'Message is required'
-        }), 400
-    
-    ALPHA_VANTAGE_KEY = "YOUR_ALPHA_VANTAGE_KEY"
-    HUGGINGFACE_TOKEN = "YOUR_HUGGINGFACE_TOKEN"
-    reply = ""
-    
-    # Check if requesting market data (use Alpha Vantage)
-    is_market_data = any(keyword in user_message_lower for keyword in [
-        'price of', 'stock', 'exchange', 'forex', 'crypto', 'bitcoin', 'ethereum', 
-        'btc', 'eth', 'aapl', 'googl', 'tsla', 'msft', 'amzn'
-    ])
-    
-    if is_market_data:
-        # ALPHA VANTAGE - Stock Price
-        symbol = None
-        if 'aapl' in user_message_lower:
-            symbol = 'AAPL'
-        elif 'googl' in user_message_lower or 'google' in user_message_lower:
-            symbol = 'GOOGL'
-        elif 'tsla' in user_message_lower or 'tesla' in user_message_lower:
-            symbol = 'TSLA'
-        elif 'msft' in user_message_lower or 'microsoft' in user_message_lower:
-            symbol = 'MSFT'
-        elif 'amzn' in user_message_lower or 'amazon' in user_message_lower:
-            symbol = 'AMZN'
-        elif 'bitcoin' in user_message_lower or 'btc' in user_message_lower:
-            symbol = 'BTC'
-        elif 'ethereum' in user_message_lower or 'eth' in user_message_lower:
-            symbol = 'ETH'
-        
-        if symbol:
-            try:
-                if symbol in ['BTC', 'ETH']:
-                    # Crypto
-                    url = f"https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency={symbol}&to_currency=USD&apikey={ALPHA_VANTAGE_KEY}"
-                else:
-                    # Stock
-                    url = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={ALPHA_VANTAGE_KEY}"
-                
-                response = requests.get(url)
-                data = response.json()
-                
-                if symbol in ['BTC', 'ETH']:
-                    price = data.get('Realtime Currency Exchange Rate', {}).get('5. Exchange Rate', 'N/A')
-                    reply = f"Current {symbol} price: ${price}"
-                else:
-                    price = data.get('Global Quote', {}).get('05. price', 'N/A')
-                    change = data.get('Global Quote', {}).get('10. change percent', 'N/A')
-                    reply = f"{symbol} is trading at ${price} ({change} today)"
-                    
-            except Exception as e:
-                reply = f"Sorry, I couldn't fetch the price data. Error: {str(e)}"
-        else:
-            reply = "I can help you get prices for stocks like AAPL, GOOGL, TSLA, MSFT, AMZN or cryptocurrencies like BTC, ETH. Just ask!"
-    else:
-        # HUGGINGFACE - General conversation
-        try:
-            API_URL = "https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium"
-            headers = {"Authorization": f"Bearer {HUGGINGFACE_TOKEN}"}
-            
-            payload = {"inputs": user_message}
-            response = requests.post(API_URL, headers=headers, json=payload)
-            
-            if response.status_code == 200:
-                result = response.json()
-                if isinstance(result, list) and len(result) > 0:
-                    reply = result[0].get('generated_text', user_message)
-                else:
-                    reply = "I'm here to help with loan predictions and financial questions!"
-            else:
-                reply = "I'm your financial assistant. I can help with loan predictions and provide basic financial advice."
-                
-        except Exception as e:
-            reply = "I'm your financial assistant. Ask me about loan eligibility, credit scores, or request stock/crypto prices!"
-    
-    return jsonify({
-        'success': True,
-        'reply': reply
-    })
 
 @app.route('/api/health', methods=['GET'])
 def health():

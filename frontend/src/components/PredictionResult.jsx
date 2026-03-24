@@ -1,7 +1,6 @@
 const PredictionResult = ({ prediction, onReset }) => {
     const isApproved = prediction.prediction === 1
     const confidenceValue = parseFloat(prediction.confidence) || 0
-    const probabilityValue = prediction.probability || 0
 
     return (
         <div className="result">
@@ -9,12 +8,58 @@ const PredictionResult = ({ prediction, onReset }) => {
                 {isApproved ? '✅' : '❌'}
             </div>
 
-            <h2>{prediction.status}</h2>
-            <p style={{ fontSize: '1.125rem', marginBottom: '1.5rem' }}>
-                {isApproved
-                    ? 'Congratulations! Your loan application is likely to be approved.'
-                    : 'Unfortunately, your loan application may be rejected.'}
-            </p>
+            <h2>Loan Status: {prediction.status} {isApproved ? '✅' : '❌'}</h2>
+            
+            {!isApproved && (
+                <div style={{
+                    background: 'rgba(255,255,255,0.1)',
+                    padding: '1rem',
+                    borderRadius: 'var(--radius-sm)',
+                    marginBottom: '1.5rem'
+                }}>
+                    <h3 style={{ color: '#ff6b6b', marginBottom: '0.5rem' }}>Reason:</h3>
+                    <ul style={{ margin: 0, paddingLeft: '1.5rem' }}>
+                        <li>Low income</li>
+                        <li>High debt</li>
+                    </ul>
+                </div>
+            )}
+
+            <div style={{
+                background: 'rgba(255,255,255,0.1)',
+                padding: '1rem',
+                borderRadius: 'var(--radius-sm)',
+                marginBottom: '1.5rem'
+            }}>
+                <h3 style={{ color: '#4ecdc4', marginBottom: '0.5rem' }}>Suggestions:</h3>
+                <ul style={{ margin: 0, paddingLeft: '1.5rem' }}>
+                    {isApproved ? (
+                        <>
+                            <li>Maintain good credit score</li>
+                            <li>Keep stable income</li>
+                            <li>Avoid new debt applications</li>
+                        </>
+                    ) : (
+                        <>
+                            <li>Reduce EMI</li>
+                            <li>Increase income proof</li>
+                            <li>Improve credit score</li>
+                        </>
+                    )}
+                </ul>
+            </div>
+
+            <div style={{
+                textAlign: 'center',
+                padding: '0.5rem',
+                background: 'linear-gradient(45deg, #667eea, #764ba2)',
+                borderRadius: 'var(--radius-sm)',
+                marginBottom: '1.5rem',
+                color: 'white',
+                fontWeight: '600'
+            }}>
+                 AI-powered advisor 
+            </div>
 
             <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
@@ -28,37 +73,6 @@ const PredictionResult = ({ prediction, onReset }) => {
                         className="confidence-fill"
                         style={{ width: `${confidenceValue}%` }}
                     ></div>
-                </div>
-            </div>
-
-            <div className="advice-box">
-                <p style={{ margin: 0, fontSize: '0.95rem' }}>
-                    <strong>💡 Advice:</strong> {isApproved 
-                        ? 'Maintain your good credit score and stable income to ensure approval.'
-                        : 'Consider improving your credit score and reducing debt-to-income ratio before reapplying.'}
-                </p>
-            </div>
-
-            <div style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '1rem',
-                marginTop: '1.5rem',
-                padding: '1rem',
-                background: 'rgba(0,0,0,0.2)',
-                borderRadius: 'var(--radius-sm)'
-            }}>
-                <div style={{ textAlign: 'center' }}>
-                    <div style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>Approval</div>
-                    <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--success)' }}>
-                        {isApproved ? confidenceValue.toFixed(1) : (100 - confidenceValue).toFixed(1)}%
-                    </div>
-                </div>
-                <div style={{ textAlign: 'center' }}>
-                    <div style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>Rejection</div>
-                    <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--error)' }}>
-                        {isApproved ? (100 - confidenceValue).toFixed(1) : confidenceValue.toFixed(1)}%
-                    </div>
                 </div>
             </div>
 

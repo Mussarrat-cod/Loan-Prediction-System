@@ -4,5 +4,5 @@ pandas==1.5.3
 numpy
 scikit-learn
 flask
-openai
-requests
+flask-cors
+joblib
